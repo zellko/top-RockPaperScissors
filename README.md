@@ -5,7 +5,19 @@ This is my go of the project "Project: Rock Paper Scissors" from Foundations par
 
 The goal is to recreate the game Rock Paper Scissors. 
 
-For now the game is played on the therminal without graphical interface. 
+In this version, a simple UI is created. 
 
+
+Color Palette:
+- https://colorhunt.co/palette/1d2d50133b5c1e5f74fcdab7
+
+Images:
+- 
+- 
+- 
+
+Font:
+- https://fonts.google.com/specimen/Exo+2?category=Serif,Sans+Serif,Display,Monospace
+- 
 
 

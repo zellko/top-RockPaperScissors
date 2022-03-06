@@ -1,0 +1,106 @@
+    body {
+        margin: 0;
+        height: 100vh;
+        font-family: 'Audiowide', cursive;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        color: #FCDAB7;
+    }
+    
+    p {
+        margin: 0;
+    }
+    
+    button {
+        background-color: #1E5F74;
+        /* padding: 3vw; */
+        border-radius: 16px;
+        border-color: #FCDAB7;
+        border-width: 5px;
+        font-size: 5vw;
+        padding: 8px;
+    }
+    
+    img {
+        height: 4vw;
+        padding: 0.5vw 0;
+    }
+    
+    .header {
+        background-color: #1D2D50;
+        font-size: 4vw;
+        padding: 2vw 0;
+    }
+    
+    .content {
+        background-color: #1D2D50;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding: 2vw;
+    }
+    
+    .battleground {
+        flex: 4;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        /* padding: 0 25%; */
+    }
+    
+    .player-card,
+    .ennemy-card {
+        background-color: #133B5C;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 5px solid black;
+        font-size: 1.5vw;
+        height: 10vw;
+        width: 10vw;
+        padding: 0 3vw;
+        margin: 0;
+    }
+    
+    .player-play,
+    .ennemy-play {
+        background-color: #1E5F74;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 5px solid black;
+        font-size: 5vw;
+        height: 10vw;
+        width: 10vw;
+        padding: 0 3vw;
+        margin: 0;
+    }
+    
+    .announcement {
+        font-size: 2vw;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        padding: 0 20%
+    }
+    
+    .action {
+        flex: 1;
+        display: flex;
+        gap: 1vw;
+        /* background-color: aliceblue; */
+        /* padding: 0 15%; */
+    }
+    
+    .footer {
+        background-color: #133B5C;
+        text-align: center;
+        font-size: auto;
+        padding: 0.5em 0;
+    }
