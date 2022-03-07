@@ -1,94 +1,108 @@
-const playSelection = ["rock", "paper", "scissors"]; // Variable for possible play choices
-let score = [0, 0]; // Variable for the score [Computer Score, Player Score]
+const playDisplay = ["✊", "✋", "✌️"]; // Variable for possible play choices
+let life = [3, 3]; // Variable for the score [Player Score, Ennemy Score]
+let gameEnded = 0;
+
+const buttons = document.querySelectorAll("button");
+const playerPlayCard = document.querySelector(".player-play");
+const ennemyPlayCard = document.querySelector(".ennemy-play");
+const announcement = document.querySelector(".announcement");
+const playerLife = document.querySelector(".player-life");
+const ennemyLife = document.querySelector(".ennemy-life");
 
 
-function computerPlay() {
-    // This function will choose what the computer will play between "rock", "paper" and "scissors"
-    return playSelection[Math.floor(Math.random() * 3)];
+function playRound(playerSelection, ennemySelection) {
+    // Check if the playerSelection is valid. NOT NEEDED WITH UI
+    // playerSelection = playerSelection.toLowerCase();
+    // if (!(playSelection.includes(playerSelection))) {
+    //     console.log("It's not a valid entry, please try again");
+    //     return;
+    // }
+
+    // Check if the player choice is same as computer choice, in this case it's a tie.
+    if (playerSelection === ennemySelection) {
+        announcement.textContent = `It's a tie! Nobody is loosing life!`;
+        return 2;
+    }
+
+    // Check if the player beat the computer. Will return 1 if player win, 0 if loose
+    if (playerSelection === 0 && ennemySelection === 2) {
+        announcement.textContent = `You Win! ${playDisplay[playerSelection]} beat ${playDisplay[ennemySelection]}`;
+        return 1;
+    }
+    if (playerSelection === 1 && ennemySelection === 0) {
+        announcement.textContent = `You Win! ${playDisplay[playerSelection]} beat ${playDisplay[ennemySelection]}`;
+        return 1;
+    }
+    if (playerSelection === 2 && ennemySelection === 1) {
+        announcement.textContent = `You Win! ${playDisplay[playerSelection]} beat ${playDisplay[ennemySelection]}`;
+        return 1;
+    }
+    announcement.textContent = `You Loose 1 life! ${playDisplay[ennemySelection]} beat ${playDisplay[playerSelection]}`;
+    return 0;
+
 }
 
 
-function playRound(playerSelection, computerSelection) {
-    // This function will:
-    // 1. Check if the playerSelection is valid 
-    playerSelection = playerSelection.toLowerCase();
-
-    if (!(playSelection.includes(playerSelection))) {
-        console.log("It's not a valid entry, please try again");
+function updadeLife(roundResult) {
+    // This function update the life of the player or ennemy 
+    if (roundResult === 1) {
+        --life[1];
+        ennemyLife.textContent = `Life: ${life[1]}`
         return;
     }
+    --life[0];
+    playerLife.textContent = `Life: ${life[0]}`
+}
 
-    // 2. Check if the player choice is same as computer choice, in this case it's a tie.
-    if (playerSelection === computerSelection) {
-        console.log(`It's a tie! ${computerSelection} / ${playerSelection}`);
-        return 2
+
+function EnnemyPlay() {
+    // This function choose what the computer will play randomly
+    const ennemyPlay = Math.floor(Math.random() * 3);
+    return ennemyPlay;
+}
+
+
+function init() {
+    playerLife.textContent = `Life: ${life[0]}`;
+    ennemyLife.textContent = `Life: ${life[1]}`;
+    announcement.style.cssText = "color: #FCDAB7;"
+    life = [3, 3];
+    gameEnded = 0;
+}
+
+
+function game(e) {
+    // This function process the game states and call helpers functions. 
+    let roundResult = 0;
+
+    // If a game was played before, we reset the variables and the UI.
+    if (gameEnded) init();
+
+    const playerPlay = Number(this.id); //Get the player card choice
+    const ennemyPlay = EnnemyPlay(); //Get the ennemy card
+
+    // Display the choosen cards on the screen
+    playerPlayCard.textContent = playDisplay[playerPlay];
+    ennemyPlayCard.textContent = playDisplay[ennemyPlay];
+
+    // Get the result of the round
+    roundResult = playRound(playerPlay, ennemyPlay);
+
+    // Upgrade lifes
+    updadeLife(roundResult);
+
+    // If player or ennemy life fall to 0, end the game and announce game result.
+    if (life[0] === 0) {
+        announcement.textContent = "You lost this battle! You do not have any more life. Try again!";
+        announcement.style.cssText = "color: red;"
+        gameEnded = 1;
     }
-
-    // 3. Check if the player beat the computer. Will return 1 if player win, 0 if loose
-    switch (playerSelection) {
-        case "scissors":
-            if (computerSelection === "paper") {
-                console.log(`You Win! ${playerSelection} beat ${computerSelection}`);
-                return 1;
-            }
-
-        case "rock":
-            if (computerSelection === "scissors") {
-                console.log(`You Win! ${playerSelection} beat ${computerSelection}`);
-                return 1;
-            }
-
-        case "paper":
-            if (computerSelection === "rock") {
-                console.log(`You Win! ${playerSelection} beat ${computerSelection}`);
-                return 1;
-            }
-
-        default:
-            console.log(`You Loose! The ${computerSelection} beat ${playerSelection}`);
-            return 0;
+    if (life[1] === 0) {
+        announcement.textContent = "You won this battle! Press one of the buttons to start a new game!";
+        announcement.style.cssText = "color: green;"
+        gameEnded = 1;
     }
 }
 
 
-function upgradeScore(result) {
-    // This function will upgrade the score of the player or computer 
-    // score[0] = Computers score, score[1] = Player score
-    switch (result) {
-        case 0:
-            ++score[0];
-            break;
-
-        case 1:
-            ++score[1];
-            break;
-
-        case 2:
-            break;
-    }
-}
-
-
-function game() {
-    // This function will start the game and continue until 5 games are done. 
-
-    for (let i = 0; i < 5; i++) {
-
-        let playerSelection = prompt("Choose: Rock, Paper or Scissors.");
-        let result = playRound(playerSelection, computerPlay());
-
-        console.log(result);
-
-        // In case player choice is not valid, the game is not counted
-        (result === undefined) ? --i: upgradeScore(result);
-    }
-
-    // When 5 games are done, the final score is prompted.
-    if (score[0] === score[1]) {
-        console.log(`It's a Tie! ${score[1]}-${score[0]}`);
-    } else {
-        (score[0] > score[1]) ? console.log(`You Loose! ${score[0]}-${score[1]}`): console.log(`You Win! ${score[1]}-${score[0]}`);
-    }
-}
-
-// game();
+buttons.forEach(button => button.addEventListener("click", game));
