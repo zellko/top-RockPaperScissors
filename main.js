@@ -50,8 +50,11 @@ function updadeLife(roundResult) {
         ennemyLife.textContent = `Life: ${life[1]}`
         return;
     }
-    --life[0];
-    playerLife.textContent = `Life: ${life[0]}`
+
+    if (roundResult === 0) {
+        --life[0];
+        playerLife.textContent = `Life: ${life[0]}`
+    }
 }
 
 
@@ -63,11 +66,11 @@ function EnnemyPlay() {
 
 
 function init() {
+    life = [3, 3];
+    gameEnded = 0;
     playerLife.textContent = `Life: ${life[0]}`;
     ennemyLife.textContent = `Life: ${life[1]}`;
     announcement.style.cssText = "color: #FCDAB7;"
-    life = [3, 3];
-    gameEnded = 0;
 }
 
 
